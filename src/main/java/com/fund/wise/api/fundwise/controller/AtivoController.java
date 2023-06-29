@@ -32,4 +32,9 @@ public class AtivoController {
         ativoService.deletarAtivoPorId(id);
         return HttpStatus.ACCEPTED;
     }
+
+    @PatchMapping
+    public ResponseEntity<Ativo> atualizarAtivo(Ativo ativoAtualizado){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(ativoService.atualizarAtivo(ativoAtualizado));
+    }
 }

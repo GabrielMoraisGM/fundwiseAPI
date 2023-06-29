@@ -77,8 +77,4 @@ public class Ativo{
         this.valor = valor;
     }
 
-    //EM TESTE
-    //public Operacao getOperacao() {return operacao;}
-
-    //public void setOperacao(Operacao operacao) {this.operacao = operacao;}
 }

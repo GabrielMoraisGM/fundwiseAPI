@@ -4,10 +4,14 @@ import com.fund.wise.api.fundwise.dto.ativo.AtivoDto;
 import com.fund.wise.api.fundwise.model.Ativo;
 import com.fund.wise.api.fundwise.repository.AtivoRepository;
 import com.fund.wise.api.fundwise.service.IAtivoService;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.NoSuchElementException;
@@ -15,7 +19,6 @@ import java.util.Optional;
 
 @Service
 public class AtivoService implements IAtivoService {
-
     @Autowired
     AtivoRepository ativoRepository;
 
@@ -26,12 +29,24 @@ public class AtivoService implements IAtivoService {
 
     @Override
     public Ativo pesquisarAtivoPorId(Long id) throws NoSuchElementException {
-        try{
-            Ativo ativoLocalizado = ativoRepository.findById(id).get();
-            return ativoLocalizado;
-        }catch (NoSuchElementException ex){
-            throw new NoSuchElementException("ID nao encontrado no banco de dados!");
-        }
+
+        Optional<Ativo> ativoLocalizado = ativoRepository.findById(id);
+
+        if(ativoLocalizado.isPresent()) return ativoLocalizado.get();
+        else throw new EntityNotFoundException("Elemento com id: " +id+ " não encontrado!");
+    }
+
+    @Override
+    public Ativo atualizarAtivo(Ativo ativoAtualizado){
+        Ativo ativoDb = pesquisarAtivoPorId(ativoAtualizado.getIdAtivo());
+
+        if(ativoAtualizado.getSigla() != null) ativoDb.setSigla(ativoAtualizado.getSigla());
+        if(ativoAtualizado.getValor() != null) ativoDb.setValor(ativoAtualizado.getValor());
+        if(ativoAtualizado.getSetor() != null) ativoDb.setSetor(ativoAtualizado.getSetor());
+        if(ativoAtualizado.getTipo() != null) ativoDb.setTipo(ativoAtualizado.getTipo());
+
+        return ativoRepository.save(ativoDb);
+
     }
 
     @Override
