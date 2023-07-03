@@ -1,16 +1,12 @@
 package com.fund.wise.api.fundwise.dto.operacao;
 
-import com.fund.wise.api.fundwise.model.Ativo;
 import com.fund.wise.api.fundwise.model.Operacao;
-import com.fund.wise.api.fundwise.repository.AtivoRepository;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class OperacaoDto {
 
-    private int tipoOperacao;
-    private double valor;
+    private Integer tipoOperacao;
+    private Double valor;
     private List<Long> idAtivos;
 
     @Deprecated
@@ -26,23 +22,18 @@ public class OperacaoDto {
        return new Operacao(tipoOperacao ,valor, idAtivos);
     }
 
-    public int getTipoOperacao() {
+    public Integer getTipoOperacao() {
         return tipoOperacao;
     }
-
-    public void setTipoOperacao(int tipoOperacao) {
+    public void setTipoOperacao(Integer tipoOperacao) {
         this.tipoOperacao = tipoOperacao;
     }
-
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
-
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
-
     public List<Long> getIdAtivos() {return idAtivos;}
-
     public void setIdAtivos(List<Long> idAtivos) {this.idAtivos = idAtivos;}
 }

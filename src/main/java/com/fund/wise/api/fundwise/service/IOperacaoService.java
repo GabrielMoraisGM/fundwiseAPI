@@ -6,6 +6,7 @@ import java.util.Optional;
 public interface IOperacaoService {
 
     public Operacao salvarOperacao(Operacao novaOperacao);
-    public Optional<Operacao> pesquisarOperacaoPorId(Long id);
+    public Operacao pesquisarOperacaoPorId(Long id);
+    public Operacao atualizarOperacaoPorId(Operacao operacaoAtualizada);
     public void deletarOperacaoPorId(Long id);
 }

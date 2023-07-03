@@ -1,6 +1,5 @@
 package com.fund.wise.api.fundwise.dto.operacao;
 
-import com.fund.wise.api.fundwise.dto.ativo.AtivoViewDto;
 import com.fund.wise.api.fundwise.model.Ativo;
 
 import java.util.List;

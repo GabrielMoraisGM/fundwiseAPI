@@ -1,17 +1,11 @@
 package com.fund.wise.api.fundwise.service.imp;
 
-import com.fund.wise.api.fundwise.dto.ativo.AtivoDto;
 import com.fund.wise.api.fundwise.model.Ativo;
 import com.fund.wise.api.fundwise.repository.AtivoRepository;
 import com.fund.wise.api.fundwise.service.IAtivoService;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.NoSuchElementException;
@@ -38,6 +32,7 @@ public class AtivoService implements IAtivoService {
 
     @Override
     public Ativo atualizarAtivo(Ativo ativoAtualizado){
+
         Ativo ativoDb = pesquisarAtivoPorId(ativoAtualizado.getIdAtivo());
 
         if(ativoAtualizado.getSigla() != null) ativoDb.setSigla(ativoAtualizado.getSigla());
@@ -46,7 +41,6 @@ public class AtivoService implements IAtivoService {
         if(ativoAtualizado.getTipo() != null) ativoDb.setTipo(ativoAtualizado.getTipo());
 
         return ativoRepository.save(ativoDb);
-
     }
 
     @Override
